@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run build",
+  "outputDirectory": "Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

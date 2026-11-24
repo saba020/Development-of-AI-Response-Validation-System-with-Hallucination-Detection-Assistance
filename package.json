@@ -1,0 +1,12 @@
+{
+  "name": "ai-response-validation-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "AI Response Quality Evaluator Agent with Hallucination Detection",
+  "scripts": {
+    "dev": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run dev",
+    "build": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run build",
+    "preview": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run preview",
+    "lint": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run lint"
+  }
+}

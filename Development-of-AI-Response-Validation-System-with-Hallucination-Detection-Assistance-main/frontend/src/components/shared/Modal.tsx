@@ -51,19 +51,19 @@ export const Modal: React.FC<ModalProps> = ({
           className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden transform transition-all z-10`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
-            <div>
-              <h3 className="text-base font-semibold text-slate-900">{title}</h3>
-              {subtitle && <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>}
+          <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+            <div className="pr-2 truncate">
+              <h3 className="text-sm sm:text-base font-semibold text-slate-900 truncate">{title}</h3>
+              {subtitle && <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 truncate">{subtitle}</p>}
             </div>
             <button
               onClick={onClose}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
-          <div className="p-6 max-h-[75vh] overflow-y-auto">{children}</div>
+          <div className="p-4 sm:p-6 max-h-[75vh] overflow-y-auto">{children}</div>
         </div>
       </div>
     </div>

@@ -114,12 +114,12 @@ export const EvaluateResponsePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <button
             type="button"
             onClick={() => setShowExampleModal(true)}
             disabled={isSubmitting}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-brand-700 border border-blue-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-brand-700 border border-blue-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
           >
             <Sparkles className="w-3.5 h-3.5 text-brand-600" />
             <span>Load Example Presets</span>
@@ -128,7 +128,7 @@ export const EvaluateResponsePage: React.FC = () => {
             type="button"
             onClick={handleClear}
             disabled={isSubmitting}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+            className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
           >
             <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
             <span>Clear</span>
@@ -262,7 +262,7 @@ export const EvaluateResponsePage: React.FC = () => {
                 <label className="text-[11px] font-semibold text-slate-700 block mb-1">
                   Or upload a specific document for this evaluation:
                 </label>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <label className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium cursor-pointer transition-colors">
                     <Upload className="w-3.5 h-3.5" />
                     <span>Choose File</span>

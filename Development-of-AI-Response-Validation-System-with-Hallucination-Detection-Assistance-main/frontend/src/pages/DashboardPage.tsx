@@ -90,12 +90,12 @@ export const DashboardPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="relative">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+          <div className="relative flex-1 sm:flex-none">
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="bg-white border border-slate-200 text-xs font-semibold text-slate-700 rounded-lg px-3 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-brand-500/20 cursor-pointer"
+              className="w-full sm:w-auto bg-white border border-slate-200 text-xs font-semibold text-slate-700 rounded-lg px-3 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-brand-500/20 cursor-pointer"
             >
               <option>Today</option>
               <option>Last 7 Days</option>
@@ -106,7 +106,7 @@ export const DashboardPage: React.FC = () => {
 
           <button
             onClick={() => navigate('/evaluate')}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Evaluate Response</span>
@@ -294,22 +294,22 @@ export const DashboardPage: React.FC = () => {
             <p className="text-[11px] text-slate-500">Audit trail of inspected AI questions and answers</p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <div className="relative flex-1 sm:flex-initial">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Filter by question or ID..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 w-52"
+                className="bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 w-full sm:w-52"
               />
             </div>
 
             <select
               value={verdictFilter}
               onChange={(e) => setVerdictFilter(e.target.value)}
-              className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700 cursor-pointer"
+              className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700 cursor-pointer w-full sm:w-auto"
             >
               <option value="all">All Verdicts</option>
               <option value="Pass">Pass</option>

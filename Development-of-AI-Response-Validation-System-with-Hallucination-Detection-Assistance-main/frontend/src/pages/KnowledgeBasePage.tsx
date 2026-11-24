@@ -241,14 +241,14 @@ export const KnowledgeBasePage: React.FC = () => {
             <p className="text-[11px] text-slate-500">Authoritative reference files stored in the evaluation knowledge base</p>
           </div>
 
-          <div className="relative">
+          <div className="relative w-full sm:w-64">
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search documents by name or category..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
-              className="bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 w-64"
+              className="bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 w-full"
             />
           </div>
         </div>

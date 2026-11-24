@@ -150,7 +150,7 @@ export const EvaluationHistoryPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           {selectedForCompare.length === 2 && (
             <button
               onClick={() => setIsCompareModalOpen(true)}
@@ -432,7 +432,7 @@ export const EvaluationHistoryPage: React.FC = () => {
             Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, sortedRecords.length)} of {sortedRecords.length} records
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <button
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}

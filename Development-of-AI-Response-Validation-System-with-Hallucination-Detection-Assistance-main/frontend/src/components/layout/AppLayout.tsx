@@ -8,6 +8,7 @@ import { Settings, ShieldCheck, Database, Cpu, HelpCircle, Check, Info } from 'l
 
 export const AppLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [apiStatus, setApiStatus] = useState<ApiStatus>({
@@ -28,28 +29,60 @@ export const AppLayout: React.FC = () => {
     getApiStatus().then(setApiStatus);
   }, []);
 
+  // Close mobile drawer on desktop resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileNavOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleToggleSidebar = () => {
+    if (window.innerWidth < 1024) {
+      setMobileNavOpen((prev) => !prev);
+    } else {
+      setCollapsed((prev) => !prev);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#F5F7FB] text-[#0F172A] flex flex-col font-sans">
-      {/* Sidebar */}
+    <div className="fixed inset-0 h-full h-[100dvh] w-full flex overflow-hidden bg-[#F5F7FB] text-[#0F172A] font-sans">
+      {/* Coordinated Sidebar: Flex child on desktop, Drawer on mobile */}
       <Sidebar
         collapsed={collapsed}
         onToggleCollapse={() => setCollapsed(!collapsed)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenHelp={() => setIsHelpOpen(true)}
         isBackendConnected={apiStatus.isBackendConnected}
+        mobileOpen={mobileNavOpen}
+        onCloseMobile={() => setMobileNavOpen(false)}
       />
 
-      {/* Top Navbar */}
-      <TopNavbar collapsed={collapsed} isBackendConnected={apiStatus.isBackendConnected} />
+      {/* Main Column: dynamically shifts and resizes with Flexbox */}
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-[#F5F7FB] transition-all duration-300">
+        {/* Pinned Header */}
+        <TopNavbar
+          collapsed={collapsed}
+          isBackendConnected={apiStatus.isBackendConnected}
+          onToggleSidebar={handleToggleSidebar}
+          onToggleMobileSidebar={() => setMobileNavOpen((prev) => !prev)}
+          isMobileOpen={mobileNavOpen}
+        />
 
-      {/* Main Content Area */}
-      <main
-        className={`flex-1 transition-all duration-300 p-6 md:p-8 max-w-7xl w-full mx-auto ${
-          collapsed ? 'pl-26' : 'pl-70'
-        }`}
-      >
-        <Outlet />
-      </main>
+        {/* Dedicated Scroll Container: ONLY this element scrolls vertically */}
+        <main
+          id="main-content"
+          role="main"
+          className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-4 sm:p-6 md:p-8"
+        >
+          <div className="max-w-7xl mx-auto w-full">
+            <Outlet />
+          </div>
+        </main>
+      </div>
 
       {/* Settings Modal */}
       <Modal
@@ -73,7 +106,7 @@ export const AppLayout: React.FC = () => {
               Dimension Weighting (Total: {relevanceWeight + accuracyWeight + hallucinationWeight + completenessWeight}%)
             </h4>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
                 <div className="flex justify-between font-semibold">
                   <span>Relevance Weight</span>
@@ -141,7 +174,7 @@ export const AppLayout: React.FC = () => {
             <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">
               Verdict Score Thresholds
             </h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-slate-600 mb-1">Pass Threshold (Score ≥)</label>
                 <input

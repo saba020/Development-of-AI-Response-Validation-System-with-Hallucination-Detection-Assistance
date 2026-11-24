@@ -45,7 +45,7 @@ export const AgentArchitecturePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 bg-white border border-slate-200 rounded-lg text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-white border border-slate-200 rounded-lg text-xs font-semibold w-full sm:w-auto">
           <button
             onClick={() => setActiveTab('topology')}
             className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer ${
@@ -162,7 +162,7 @@ export const AgentArchitecturePage: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2 mt-3 pt-3 border-t border-blue-200/60 text-[11px]">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-blue-200/60 text-[11px]">
                   <div className="bg-white/80 p-2 rounded border border-blue-100">
                     <strong className="text-slate-800 block">Supervisor</strong>
                     <span className="text-slate-500 text-[10px]">Oversees decisions</span>
@@ -410,7 +410,7 @@ export const AgentArchitecturePage: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-purple-200/60 text-center text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 pt-3 border-t border-purple-200/60 text-center text-xs">
                   <div className="bg-white/80 p-2 rounded border border-purple-100 font-semibold text-green-700">
                     Pass (Score ≥ 80%)
                   </div>
