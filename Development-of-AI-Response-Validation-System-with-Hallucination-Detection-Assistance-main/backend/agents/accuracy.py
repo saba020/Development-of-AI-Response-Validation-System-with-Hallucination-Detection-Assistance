@@ -12,37 +12,32 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / ".env")
 
-API_KEY = os.getenv("GEMINI_API_KEY")
-MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
-
-if not API_KEY:
-    raise ValueError("GEMINI_API_KEY is not configured")
-
-client = genai.Client(api_key=API_KEY)
-
-# Initialize FAISS vector store
-vector_store = get_vector_store()
+def get_client_and_model():
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY is not configured. Please set your GEMINI_API_KEY in backend/.env")
+    model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    return genai.Client(api_key=api_key), model
 
 def retrieve_evidence(question, top_k=5):
-
-    results = vector_store.search(
-        query=question,
-        top_k=top_k
-    )
-
-    evidence_parts = []
-
-    for result in results:
-
-        document = result["document"]
-
-        evidence_parts.append(
-            f"Source: {document.get('source', 'Unknown')}\n"
-            f"Similarity: {result['score']:.4f}\n"
-            f"Evidence: {document['text']}"
+    try:
+        vector_store = get_vector_store()
+        results = vector_store.search(
+            query=question,
+            top_k=top_k
         )
-
-    return "\n\n".join(evidence_parts)
+        evidence_parts = []
+        for result in results:
+            document = result["document"]
+            evidence_parts.append(
+                f"Source: {document.get('source', 'Unknown')}\n"
+                f"Similarity: {result['score']:.4f}\n"
+                f"Evidence: {document['text']}"
+            )
+        return "\n\n".join(evidence_parts)
+    except Exception as e:
+        print(f"Notice: FAISS retrieval unavailable ({e}). Evaluating against available context.")
+        return ""
 
 
 def evaluate_accuracy(
@@ -108,9 +103,11 @@ Allowed verdicts:
 - INSUFFICIENT_EVIDENCE
 """
 
+    client, model = get_client_and_model()
+
     response = generate_content_with_retry(
         client=client,
-        model=MODEL,
+        model=model,
         contents=prompt,
         config={
             "response_mime_type": "application/json"

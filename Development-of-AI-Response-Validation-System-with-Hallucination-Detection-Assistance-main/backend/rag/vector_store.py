@@ -1,16 +1,28 @@
 
-import faiss
+try:
+    import faiss
+except ImportError:
+    faiss = None
+
 import json
-import numpy as np
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
 from pathlib import Path
 from functools import lru_cache
 
 try:
     from .document_loader import load_all_documents
     from .embeddings import EmbeddingModel
-except ImportError:
-    from .document_loader import load_all_documents
-    from .embeddings import EmbeddingModel
+except (ImportError, ValueError):
+    try:
+        from rag.document_loader import load_all_documents
+        from rag.embeddings import EmbeddingModel
+    except ImportError:
+        from document_loader import load_all_documents
+        from embeddings import EmbeddingModel
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -35,7 +47,10 @@ def get_vector_store():
 class FAISSVectorStore:
 
     def __init__(self):
-
+        if faiss is None:
+            raise ImportError(
+                "faiss is not installed. Please install faiss-cpu via: pip install faiss-cpu"
+            )
         self.embedding_model = EmbeddingModel()
         self.index = None
         self.documents = []

@@ -1,12 +1,23 @@
 
 from functools import lru_cache
 
-from sentence_transformers import SentenceTransformer
-import numpy as np
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
 
 
 @lru_cache(maxsize=1)
 def get_embedding_model():
+    if SentenceTransformer is None:
+        raise ImportError(
+            "sentence-transformers is not installed. Please install via: pip install sentence-transformers"
+        )
     print("Loading Sentence Transformer model...")
 
     model = SentenceTransformer(

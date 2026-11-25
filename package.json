@@ -7,6 +7,7 @@
     "dev": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run dev",
     "build": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run build",
     "preview": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run preview",
-    "lint": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run lint"
+    "lint": "npm --prefix Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/frontend run lint",
+    "backend": "python -m uvicorn api:app --reload --port 8000 --app-dir Development-of-AI-Response-Validation-System-with-Hallucination-Detection-Assistance-main/backend"
   }
 }

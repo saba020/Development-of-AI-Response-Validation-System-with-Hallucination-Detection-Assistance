@@ -1,5 +1,5 @@
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional
@@ -19,10 +19,17 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "https://development-of-ai-response-validati-mu.vercel.app"
-],
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+        "https://development-of-ai-response-validati-mu.vercel.app"
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,6 +58,12 @@ def health_check():
         "status": "healthy",
         "service": "AI Response Quality Evaluator"
     }
+
+
+# Favicon endpoint (suppresses browser 404 log noise)
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return Response(status_code=204)
 
 
 # Evaluation endpoint
@@ -84,3 +97,18 @@ def evaluate(request: EvaluationRequest):
             status_code=500,
             detail=str(error)
         )
+
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+
+    port = int(os.getenv("PORT", 8000))
+    host = os.getenv("HOST", "127.0.0.1")
+    print(f"\n=======================================================")
+    print(f"  AI Response Quality Evaluator API")
+    print(f"  Running locally on http://{host}:{port}")
+    print(f"  Documentation: http://{host}:{port}/docs")
+    print(f"=======================================================\n")
+    uvicorn.run("api:app", host=host, port=port, reload=True)
+
